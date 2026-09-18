@@ -1,0 +1,383 @@
+/* The remaining CSS describes physical book geometry and layered textures.
+   Rear board z=-22px, page block z=-18px, front z=4px.
+   Do not put opacity, filters or overflow:hidden on preserve-3d parents:
+   they flatten the cover and page edges. Layout and animation live in Tailwind. */
+
+@layer components {
+  .desk-texture {
+    background:
+      radial-gradient(ellipse at 50% 40%, #faf7ef 0%, transparent 65%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23867d69' opacity='.04' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+  }
+  .book-stage {
+    perspective: 2200px;
+  }
+  .page-surface {
+    transform-origin: 15% 50%;
+    transform-style: preserve-3d;
+  }
+  .chapter-bookmarks {
+    transform: translateZ(0);
+  }
+  .video-placeholder {
+    background: radial-gradient(ellipse at 50% 100%, #376169, transparent);
+  }
+  .cover-title {
+    text-shadow:
+      0 1px 1px #000,
+      0 -1px 0 #f4e6b52b;
+  }
+
+  .book-display {
+    perspective: 1800px;
+    perspective-origin: 50% 35%;
+  }
+
+  .closed-book {
+    position: relative;
+    color: #e9dba9;
+    width: 100%;
+    max-width: none;
+    aspect-ratio: 2 / 3;
+    border-radius: 4px 9px 9px 4px;
+    background: none;
+    box-shadow: none;
+    transform-style: preserve-3d;
+    transform: rotateX(var(--tilt-x, 3deg)) rotateY(var(--tilt-y, -9deg));
+    transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .book-ground-shadow {
+    position: absolute;
+    inset: 30px -25px -35px 0;
+    border-radius: 40%;
+    background: #1d2d2a;
+    opacity: 0.23;
+    filter: blur(27px);
+    transform: translate(18px, 15px) scale(0.97, 0.96);
+    pointer-events: none;
+  }
+
+  .hardcover-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 4px 8px 8px 4px;
+    background: #102f36;
+    border: 2px solid #345250;
+    transform: translateZ(-22px);
+    box-shadow: 3px 5px 8px #0e231a44;
+  }
+
+  .book-page-block {
+    position: absolute;
+    inset: 5px 4px 5px 6px;
+    transform: translateZ(-18px);
+    background: #e8dfc7;
+    border-radius: 2px 6px 6px 2px;
+  }
+
+  .book-page-edge {
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    right: 3px;
+    width: 23px;
+    transform-origin: right center;
+    transform: rotateY(-90deg);
+    background: repeating-linear-gradient(
+      90deg,
+      #ddd2b8 0px,
+      #f6efdb 1px,
+      #f6efdb 2px,
+      #bdb297 3px
+    );
+    border-radius: 2px;
+    box-shadow: inset 0 0 8px #71634844;
+  }
+
+  .book-bottom-edge {
+    position: absolute;
+    bottom: 5px;
+    left: 7px;
+    right: 4px;
+    height: 23px;
+    transform-origin: center bottom;
+    transform: rotateX(90deg);
+    background: repeating-linear-gradient(
+      0deg,
+      #c5b99d 0px,
+      #f9f0d8 1px,
+      #e6dbc2 3px
+    );
+  }
+
+  .book-binding {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 26px;
+    transform-origin: left center;
+    transform: rotateY(90deg) translateX(-4px);
+    background: linear-gradient(
+      90deg,
+      #102f36,
+      #315352 25%,
+      #183c43 70%,
+      #0a2229
+    );
+    border: 1px solid #49645a;
+    border-radius: 4px;
+  }
+
+  .book-binding::before,
+  .book-binding::after {
+    content: '';
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    height: 4px;
+    border-block: 1px solid #b39c62;
+  }
+
+  .book-binding::before {
+    top: 35px;
+  }
+
+  .book-binding::after {
+    bottom: 35px;
+  }
+
+  .book-binding span {
+    position: absolute;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    bottom: 65px;
+    left: 8px;
+    font-size: 7px;
+    letter-spacing: 2.4px;
+    color: #cfba80;
+  }
+
+  .book-endpaper {
+    position: absolute;
+    inset: 5px;
+    transform: translateZ(0);
+    background:
+      repeating-linear-gradient(45deg, #6476630a 0 2px, transparent 2px 11px),
+      #ebe3cf;
+    border: 1px solid #c9bd9f;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: #6f755f;
+    font:
+      30px/1.5 'Libre Caslon Display',
+      Georgia,
+      serif;
+  }
+
+  .cover-front {
+    position: absolute;
+    inset: 0;
+    transform-origin: 0% 50%;
+    transform: translateZ(4px);
+    transform-style: preserve-3d;
+  }
+
+  .cover-face,
+  .cover-inside {
+    position: absolute;
+    inset: 0;
+    border-radius: 3px 8px 8px 3px;
+    backface-visibility: hidden;
+  }
+
+  .cover-face {
+    display: block;
+    background: #163b43;
+    transform: translateZ(1px);
+    box-shadow: inset 0 0 0 1px #f5d8984d;
+  }
+
+  .cover-face:focus-visible {
+    outline-offset: 8px;
+  }
+
+  .cover-face::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        90deg,
+        #041e2870,
+        transparent 2%,
+        #d6e1b430 3%,
+        #071d3166 4%,
+        transparent 7%
+      ),
+      radial-gradient(
+        ellipse at var(--light-x, 30%) 0%,
+        #f7d99a19,
+        transparent 65%
+      );
+    box-shadow:
+      inset 1px 0 2px #f6e8af66,
+      inset -1px 0 3px #001b24;
+  }
+
+  .cover-inside {
+    transform: rotateY(180deg);
+    background:
+      repeating-linear-gradient(45deg, #637d640c 0 2px, transparent 2px 10px),
+      #e9dfc8;
+    border: 8px solid #193e48;
+    box-shadow: inset -10px 0 20px #51452625;
+  }
+
+  .book-ribbon {
+    position: absolute;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 72%, 0 100%);
+    right: 40px;
+    bottom: -32px;
+    height: 65px;
+    width: 23px;
+    z-index: auto;
+    transform: translateZ(-14px);
+    background: linear-gradient(
+      90deg,
+      #9c6332,
+      #c59151 30%,
+      #d4a465 48%,
+      #b57f41 90%
+    );
+  }
+
+  .bookmark {
+    box-shadow:
+      3px 4px 7px #2838291c,
+      inset 0 1px #fff6;
+    transform-origin: left center;
+    transition:
+      transform 0.25s,
+      box-shadow 0.25s;
+    border-block: 1px solid #af9e7833;
+  }
+
+  .bookmark:hover,
+  .bookmark:focus-visible {
+    transform: translateX(9px) rotate(-1deg);
+    box-shadow: 3px 8px 12px #28382925;
+  }
+
+  .bookmark-sage {
+    background: linear-gradient(90deg, #a0ad90, #c7d0b3 12%, #d6ddc6);
+  }
+
+  .bookmark-clay {
+    background: linear-gradient(90deg, #c39b7e, #dbb697 12%, #e5c8ab);
+  }
+
+  .bookmark-sea {
+    background: linear-gradient(90deg, #91a7a3, #b5cbc5 12%, #cbdcd3);
+  }
+
+  .open-book {
+    position: relative;
+    overflow: visible;
+    perspective: 1900px;
+    perspective-origin: 40% 40%;
+    transform-style: preserve-3d;
+    background: #f6efdd;
+    border: 3px solid #31504c;
+    border-left-width: 5px;
+    border-bottom-width: 5px;
+    box-shadow:
+      1px 3px #ddd2b9,
+      2px 5px #f7efd9,
+      3px 7px #b8ad92,
+      4px 9px #eee4ca,
+      5px 13px #24443f,
+      0 24px 35px -12px #2f36264a;
+  }
+
+  .lesson-index {
+    border-radius: 3px 0 0 3px;
+    background: linear-gradient(
+      90deg,
+      #d7cbb43d,
+      #f2ecdf 6%,
+      #f6f0e2 88%,
+      #e0d5be 97%,
+      #a69c8380
+    );
+  }
+
+  .lesson-paper {
+    position: relative;
+    transform-origin: 0% 50%;
+    backface-visibility: hidden;
+    border-radius: 0 6px 6px 0;
+    background: linear-gradient(
+      90deg,
+      #b9ad9288,
+      #f9f4e7 4%,
+      #fcf8ed 90%,
+      #e9dfc980
+    );
+  }
+
+  .lesson-paper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #192b2266, transparent 45%);
+    opacity: 0;
+  }
+
+  .bookmark-paper {
+    background: linear-gradient(90deg, #b4ac8c, #e0d3af 12%, #ebe1c6);
+  }
+
+  @media (max-width: 800px) {
+    .open-book {
+      perspective-origin: 0% 50%;
+    }
+    .lesson-index {
+      border-radius: 3px 3px 0 0;
+    }
+    .lesson-paper {
+      border-radius: 0 0 5px 5px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .bookmark:hover,
+    .bookmark:focus-visible {
+      transform: translateY(-3px);
+    }
+    .book-ground-shadow {
+      bottom: 200px;
+      right: 0;
+      transform: translate(0, 15px) scale(0.97, 0.96);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .closed-book {
+      transform: rotateY(-7deg);
+      transition: none;
+    }
+    .cover-front {
+      transform: translateZ(4px);
+    }
+    .bookmark:hover {
+      transform: none;
+    }
+  }
+}

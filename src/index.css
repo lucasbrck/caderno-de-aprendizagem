@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Caslon+Display&display=swap');
+@import './book-effects.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    @apply font-sans text-book-ink bg-book-desk;
+    font-synthesis: none;
+  }
+
+  body {
+    min-width: 320px;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a {
+    transition:
+      color 0.2s,
+      background 0.2s;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid theme('colors.book.focus');
+    outline-offset: 5px;
+  }
+}
+
+/* Also covers pseudo-elements and any future motion outside the book. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
