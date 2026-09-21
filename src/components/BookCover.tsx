@@ -1,8 +1,8 @@
 import { Link } from '@tanstack/react-router'
 import { MoveRight } from 'lucide-react'
 import { useRef, type PointerEvent } from 'react'
-import { lessons } from '../data'
-import { ChapterLink } from './ChapterLink'
+import { lessonCategories } from '../data'
+import { CategoryLink } from './CategoryLink'
 
 export function BookCover() {
   const book = useRef<HTMLDivElement>(null)
@@ -56,10 +56,10 @@ export function BookCover() {
         </div>
         <div className="cover-front motion-safe:group-data-[state=turning]/book:animate-hardcover-open motion-safe:group-data-[state=arriving]/book:animate-hardcover-close motion-reduce:animate-none">
           <Link
-            to="/aula/$lessonId"
-            params={{ lessonId: lessons[0].id }}
+            to="/categoria/$category"
+            params={{ category: lessonCategories[0] }}
             className="cover-face"
-            aria-label="Abrir livro no primeiro capítulo: Leitura"
+            aria-label="Abrir livro na seção 2º Ano"
           >
             <img
               className="block size-full rounded-[inherit] object-cover"
@@ -71,7 +71,7 @@ export function BookCover() {
             />
             <div className="absolute inset-0 pb-6 pl-[30px] pr-6 pt-[30px] text-center text-[#eddbac] short-desktop:pt-[25px] bookmarks:pt-[26px] tiny:pt-[22px]">
               <span className="text-[7px] tracking-[2px] text-[#e0c996] short-desktop:text-[6px] bookmarks:text-[6px] tiny:text-[5px] tiny:tracking-[1.5px]">
-                LÍNGUA PORTUGUESA · 5º ANO
+                LÍNGUA PORTUGUESA
               </span>
               <h1
                 id="book-title"
@@ -97,15 +97,10 @@ export function BookCover() {
         aria-label="Escolha uma aula"
       >
         <span className="mb-[3px] pl-[25px] text-[7px] tracking-[1.5px] text-[#7e8070] bookmarks:col-span-full bookmarks:mb-[7px] bookmarks:mt-1 bookmarks:p-0 bookmarks:text-center">
-          ESCOLHA UM CAPÍTULO
+          ESCOLHA UMA SEÇÃO
         </span>
-        {lessons.map((lesson, index) => (
-          <ChapterLink
-            key={lesson.id}
-            lesson={lesson}
-            index={index}
-            variant="bookmark"
-          />
+        {lessonCategories.map((category) => (
+          <CategoryLink key={category} category={category} variant="bookmark" />
         ))}
       </nav>
     </div>

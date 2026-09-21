@@ -1,9 +1,9 @@
 import { BookOpen } from 'lucide-react'
-import { lessons } from '../data'
-import { ChapterLink } from './ChapterLink'
+import { lessonCategories, type LessonCategory } from '../data'
+import { CategoryLink } from './CategoryLink'
 import { Eyebrow } from './BookTypography'
 
-export function LessonIndex({ lessonId }: { lessonId: string }) {
+export function LessonIndex({ category }: { category: LessonCategory }) {
   return (
     <aside className="lesson-index relative flex flex-col border-r border-[#b8b09e] px-7 pb-[25px] pt-10 tablet:border-b tablet:border-r-0 tablet:border-b-[#d8d0bd] tablet:p-[22px] mobile:px-[9px] mobile:py-[14px]">
       <div className="tablet:hidden">
@@ -23,15 +23,14 @@ export function LessonIndex({ lessonId }: { lessonId: string }) {
       </div>
       <nav
         className="mt-[35px] tablet:m-0 tablet:flex tablet:gap-[6px]"
-        aria-label="Capítulos"
+        aria-label="Seções"
       >
-        {lessons.map((lesson, index) => (
-          <ChapterLink
-            key={lesson.id}
-            lesson={lesson}
-            index={index}
+        {lessonCategories.map((item) => (
+          <CategoryLink
+            key={item}
+            category={item}
             variant="index"
-            active={lesson.id === lessonId}
+            active={item === category}
           />
         ))}
       </nav>

@@ -1,6 +1,6 @@
 import { useParams } from '@tanstack/react-router'
 import { BookOpen, Clock3 } from 'lucide-react'
-import { lessons } from '../data'
+import { isLessonCategory, lessons } from '../data'
 import { BookHint, Eyebrow } from '../components/BookTypography'
 import { CoverLink } from '../components/BookTextLink'
 import { BookPage } from '../components/BookPage'
@@ -10,9 +10,13 @@ import { LessonMedia } from '../components/LessonMedia'
 import { formatChapterNumber } from '../lib/chapters'
 
 export function LessonPage() {
-  const { lessonId } = useParams({ from: '/aula/$lessonId' })
-  const index = lessons.findIndex((item) => item.id === lessonId)
-  const lesson = lessons[index]
+  const { category: categoryParam, lessonId } = useParams({
+    from: '/categoria/$category/aula/$lessonId',
+  })
+  const category = isLessonCategory(categoryParam) ? categoryParam : undefined
+  const categoryLessons = category ? lessons[category] : []
+  const index = categoryLessons.findIndex((item) => item.id === lessonId)
+  const lesson = categoryLessons[index]
 
   if (!lesson) {
     return (
@@ -36,11 +40,11 @@ export function LessonPage() {
         <Eyebrow className="tablet:hidden">SEU LIVRO DE DESCOBERTAS</Eyebrow>
         <span className="text-[8px] tracking-[1px]">
           CAPÍTULO {formatChapterNumber(index + 1)} /{' '}
-          {formatChapterNumber(lessons.length)}
+          {formatChapterNumber(categoryLessons.length)}
         </span>
       </div>
       <div className="open-book grid grid-cols-[.8fr_1.65fr] rounded-[5px_9px_9px_5px] tablet:grid-cols-1">
-        <LessonIndex lessonId={lessonId} />
+        <LessonIndex category={category!} />
         <BookPage>
           <div>
             <Eyebrow className="text-[#8a8b74]">
@@ -78,8 +82,9 @@ export function LessonPage() {
           </div>
           <ChapterNavigation
             index={index}
-            previous={lessons[index - 1]}
-            next={lessons[index + 1]}
+            category={category!}
+            previous={categoryLessons[index - 1]}
+            next={categoryLessons[index + 1]}
           />
         </BookPage>
       </div>

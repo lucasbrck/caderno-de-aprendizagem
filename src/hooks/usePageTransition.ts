@@ -1,6 +1,6 @@
 import { useLocation, useRouter } from '@tanstack/react-router'
 import { useEffect, useRef, useState, type MouseEvent } from 'react'
-import { lessons } from '../data'
+import { allLessons, lessonCategories } from '../data'
 import { PAGE_TURN_MS } from '../styles/book-motion.js'
 
 export function usePageTransition() {
@@ -13,10 +13,16 @@ export function usePageTransition() {
   const pending = useRef(false)
   useEffect(() => () => clearTimeout(timer.current), [])
   useEffect(() => {
-    const chapterPosition = (path: string) =>
-      path === '/'
-        ? -1
-        : lessons.findIndex((lesson) => path.endsWith('/' + lesson.id))
+    const chapterPosition = (path: string) => {
+      if (path === '/') return -1
+      const lessonIndex = allLessons.findIndex((lesson) =>
+        path.endsWith('/' + lesson.id),
+      )
+      if (lessonIndex >= 0) return lessonCategories.length + lessonIndex
+      return lessonCategories.findIndex(
+        (category) => path === `/categoria/${encodeURIComponent(category)}`,
+      )
+    }
     setDirection(
       chapterPosition(pathname) < chapterPosition(previousPath.current)
         ? 'backward'
@@ -57,12 +63,18 @@ export function usePageTransition() {
     event.stopPropagation()
     if (pending.current) return
     pending.current = true
-    const currentIndex = lessons.findIndex((lesson) =>
-      pathname.endsWith('/' + lesson.id),
-    )
-    const nextIndex = lessons.findIndex((lesson) =>
-      url.pathname.endsWith('/' + lesson.id),
-    )
+    const pathPosition = (path: string) => {
+      if (path === '/') return -1
+      const lessonIndex = allLessons.findIndex((lesson) =>
+        path.endsWith('/' + lesson.id),
+      )
+      if (lessonIndex >= 0) return lessonCategories.length + lessonIndex
+      return lessonCategories.findIndex(
+        (category) => path === `/categoria/${encodeURIComponent(category)}`,
+      )
+    }
+    const currentIndex = pathPosition(pathname)
+    const nextIndex = pathPosition(url.pathname)
     setDirection(
       url.pathname === '/' || (pathname !== '/' && nextIndex < currentIndex)
         ? 'backward'

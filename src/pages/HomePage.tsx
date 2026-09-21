@@ -21,7 +21,7 @@ export function HomePage() {
         >
           ↳
         </span>{' '}
-        Abra a capa ou escolha um capítulo.
+        Abra a capa ou escolha uma seção.
       </BookHint>
     </section>
   )

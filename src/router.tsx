@@ -6,6 +6,7 @@ import {
 import { AppShell } from './components/AppShell'
 import { HomePage } from './pages/HomePage'
 import { LessonPage } from './pages/LessonPage'
+import { CategoryPage } from './pages/CategoryPage'
 
 const rootRoute = createRootRoute({
   component: AppShell,
@@ -18,14 +19,20 @@ const indexRoute = createRoute({
   component: HomePage,
 })
 
+const categoryRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/categoria/$category',
+  component: CategoryPage,
+})
+
 const lessonRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/aula/$lessonId',
+  path: '/categoria/$category/aula/$lessonId',
   component: LessonPage,
 })
 
 export const router = createRouter({
-  routeTree: rootRoute.addChildren([indexRoute, lessonRoute]),
+  routeTree: rootRoute.addChildren([indexRoute, categoryRoute, lessonRoute]),
 })
 
 // Makes Link, navigation and route parameters aware of this route tree.

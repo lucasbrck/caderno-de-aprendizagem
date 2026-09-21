@@ -1,10 +1,11 @@
 import { Link } from '@tanstack/react-router'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
-import type { Lesson } from '../data'
+import type { Lesson, LessonCategory } from '../data'
 import { formatChapterNumber } from '../lib/chapters'
 
 interface ChapterNavigationProps {
   index: number
+  category: LessonCategory
   previous?: Lesson
   next?: Lesson
 }
@@ -13,6 +14,7 @@ const linkClassName = 'flex items-center gap-2 hover:text-[#a0783c]'
 
 export function ChapterNavigation({
   index,
+  category,
   previous,
   next,
 }: ChapterNavigationProps) {
@@ -23,15 +25,19 @@ export function ChapterNavigation({
     >
       {previous ? (
         <Link
-          to="/aula/$lessonId"
-          params={{ lessonId: previous.id }}
+          to="/categoria/$category/aula/$lessonId"
+          params={{ category, lessonId: previous.id }}
           className={linkClassName}
         >
           <ArrowLeft size={16} /> Anterior
         </Link>
       ) : (
-        <Link to="/" className={linkClassName}>
-          <ArrowLeft size={16} /> Capa
+        <Link
+          to="/categoria/$category"
+          params={{ category }}
+          className={linkClassName}
+        >
+          <ArrowLeft size={16} /> Conteúdos
         </Link>
       )}
       <span className="font-[Georgia,serif] text-[#a09a86]">
@@ -39,15 +45,19 @@ export function ChapterNavigation({
       </span>
       {next ? (
         <Link
-          to="/aula/$lessonId"
-          params={{ lessonId: next.id }}
+          to="/categoria/$category/aula/$lessonId"
+          params={{ category, lessonId: next.id }}
           className={linkClassName}
         >
           Próximo capítulo <ArrowRight size={16} />
         </Link>
       ) : (
-        <Link to="/" className={linkClassName}>
-          Voltar à capa <ArrowRight size={16} />
+        <Link
+          to="/categoria/$category"
+          params={{ category }}
+          className={linkClassName}
+        >
+          Voltar aos conteúdos <ArrowRight size={16} />
         </Link>
       )}
     </nav>

@@ -1,18 +1,15 @@
 import { Link } from '@tanstack/react-router'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
-import type { Lesson, LessonCategory } from '../data'
+import { lessonCategories, lessons, type LessonCategory } from '../data'
 import { formatChapterNumber } from '../lib/chapters'
 import { cn } from '../lib/utils'
 
-interface ChapterLinkProps {
-  lesson: Lesson
+interface CategoryLinkProps {
   category: LessonCategory
-  index: number
   variant: 'bookmark' | 'index'
   active?: boolean
 }
 
-// Literal names keep every variant discoverable by Tailwind's content scanner.
 const bookmarkColors = [
   'bookmark-paper',
   'bookmark-sage',
@@ -20,19 +17,19 @@ const bookmarkColors = [
   'bookmark-sea',
 ]
 
-export function ChapterLink({
-  lesson,
+export function CategoryLink({
   category,
-  index,
   variant,
   active = false,
-}: ChapterLinkProps) {
+}: CategoryLinkProps) {
   const bookmark = variant === 'bookmark'
+  const index = lessonCategories.indexOf(category)
+  const lessonCount = lessons[category].length
 
   return (
     <Link
-      to="/categoria/$category/aula/$lessonId"
-      params={{ category, lessonId: lesson.id }}
+      to="/categoria/$category"
+      params={{ category }}
       aria-current={active ? 'page' : undefined}
       className={cn(
         'flex items-center',
@@ -66,7 +63,7 @@ export function ChapterLink({
             : 'tablet:flex-initial tablet:text-[10px] mobile:text-[9px]',
         )}
       >
-        {lesson.title}
+        {category}
         <small
           className={cn(
             'block text-[8px] leading-[1.5]',
@@ -75,7 +72,7 @@ export function ChapterLink({
               : 'mt-1 tablet:hidden',
           )}
         >
-          {lesson.description}
+          {lessonCount === 1 ? '1 conteúdo' : `${lessonCount} conteúdos`}
         </small>
       </span>
       {bookmark ? (
