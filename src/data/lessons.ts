@@ -61,7 +61,7 @@ export const lessons: Record<LessonCategory, Lesson[]> = {
       id: 'sujeito-predicado',
       title: 'Sujeito e predicado',
       subject: 'Língua Portuguesa',
-      category: 'Sintaxe',
+      category: 'Gramática',
       description:
         'Aprenda a identificar e compreender o sujeito e o predicado, reconhecendo suas funções e relações na construção das frases.',
       youtubeId: '',
