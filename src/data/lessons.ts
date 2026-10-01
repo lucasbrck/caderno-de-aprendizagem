@@ -41,9 +41,36 @@ export const lessons: Record<LessonCategory, Lesson[]> = {
       accent: 'bg-ink',
       files: [],
     },
+    {
+      id: 'pdt-desenvolvimento',
+      title: 'Texto Dissertativo-Argumentativo - Desenvolvimento',
+      subject: 'Língua Portuguesa',
+      category: 'Produção de Texto',
+      description:
+        'Aprenda a construir parágrafos de desenvolvimento em textos dissertativos-argumentativos, organizando argumentos, explicando ideias e utilizando informações que fortaleçam a sua argumentação.',
+      youtubeId: '',
+      googleSlidesIframe:
+        'https://docs.google.com/presentation/d/e/2PACX-1vSWZDYijZltuirLAG4RSu_uWQ1czHEhAqCVDE2fNKSc7o27dK-SlQYFug991RwbQMWz7yVdiQajN3m-/pub?start=false&loop=false&delayms=3000',
+      thumbnail: '',
+      accent: 'bg-rose-200',
+      files: [],
+    },
   ],
   Morfologia: [],
-  Sintaxe: [],
+  Sintaxe: [{
+      id: 'sujeito-predicado',
+      title: 'Sujeito e predicado',
+      subject: 'Língua Portuguesa',
+      category: 'Sintaxe',
+      description:
+        'Aprenda a identificar e compreender o sujeito e o predicado, reconhecendo suas funções e relações na construção das frases.',
+      youtubeId: '',
+      googleSlidesIframe:
+        'https://docs.google.com/presentation/d/e/2PACX-1vTGxkwjKHvDNlPUHRsx4ikSmvZavbiKUWXixi3-6wDFkCeVbZJ8NcOsSlGOGoonJNePjd2S--unE9Xu/pub?start=false&loop=false&delayms=3000',
+      thumbnail: '',
+      accent: 'bg-cyan-200',
+      files: [],
+    },],
   Semântica: [],
 }
 
