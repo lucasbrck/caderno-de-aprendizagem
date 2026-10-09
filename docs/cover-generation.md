@@ -4,6 +4,12 @@ Arquivo: `public/images/cover-discoveries-v2.png` (1024 × 1536).
 
 Gerada com a ferramenta integrada imagegen. O original foi copiado para o projeto sem alterações. Título e navegação são HTML, separados da ilustração.
 
+## Imagens para produção
+
+A home usa derivados WebP de 480, 820 e 1024 px, com qualidade 82. O PNG permanece como original para futuras exportações. Para regenerar as versões, use Node.js 22 e execute `npm run images:optimize`.
+
+`BookCover.tsx` seleciona a resolução com `srcSet` e `sizes`, considerando a largura da capa e a densidade de pixels da tela. O preload em `index.html` usa os mesmos valores e roda somente na URL `/`, para não baixar a capa ao abrir uma aula ou o quiz diretamente. Ao mudar os arquivos ou o tamanho visual da capa, mantenha os dois locais sincronizados.
+
 ## Prompt final
 
 ```text

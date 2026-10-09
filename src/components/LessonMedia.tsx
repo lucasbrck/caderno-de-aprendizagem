@@ -5,9 +5,11 @@ import { Eyebrow } from './BookTypography'
 
 export function LessonMedia({ lesson }: { lesson: Lesson }) {
   const youtubeId = lesson.youtubeId?.trim()
+  console.log("🚀 ~ LessonMedia ~ lesson:", lesson)
   const slidesSrc = youtubeId
     ? null
     : getGoogleSlidesSrc(lesson.googleSlidesIframe)
+  console.log("🚀 ~ LessonMedia ~ slidesSrc:", slidesSrc)
   const MediaIcon = slidesSrc ? Presentation : Play
   const externalUrl = youtubeId
     ? `https://www.youtube.com/watch?v=${youtubeId}`

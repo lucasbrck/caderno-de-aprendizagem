@@ -36,7 +36,9 @@ export function usePageTransition() {
     document.title =
       pathname === '/'
         ? 'Entre palavras e descobertas | Nossa Escola'
-        : 'Seu capítulo | Nossa Escola'
+        : pathname === '/quiz'
+          ? 'Quiz | Nossa Escola'
+          : 'Seu capítulo | Nossa Escola'
   }, [pathname])
   function turnPage(event: MouseEvent<HTMLDivElement>) {
     const anchor = (event.target as HTMLElement).closest('a')
@@ -63,6 +65,10 @@ export function usePageTransition() {
     event.stopPropagation()
     if (pending.current) return
     pending.current = true
+    // Fetch the destination chunk while the current page turns, including on touch.
+    void navigation.preloadRoute({ to: url.pathname }).catch(() => {
+      // Navigation retries through the router's normal error handling.
+    })
     const pathPosition = (path: string) => {
       if (path === '/') return -1
       const lessonIndex = allLessons.findIndex((lesson) =>

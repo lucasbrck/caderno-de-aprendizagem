@@ -4,6 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#193e48" />
+    <script>
+      // Match BookCover's responsive image; avoid fetching it on deep links.
+      if (window.location.pathname === '/') {
+        const cover = document.createElement('link')
+        cover.rel = 'preload'
+        cover.as = 'image'
+        cover.type = 'image/webp'
+        cover.fetchPriority = 'high'
+        cover.imageSrcset =
+          '/images/cover-discoveries-v2-480.webp 480w, /images/cover-discoveries-v2-820.webp 820w, /images/cover-discoveries-v2-1024.webp 1024w'
+        cover.imageSizes =
+          '(max-width: 720px) min(360px, calc(100vw - 62px)), (max-width: 1000px) min(500px, calc(100vw - 260px)), (min-width: 1100px) and (max-height: 850px) min(512.5px, calc(100vw - 298px)), min(700px, calc(100vw - 298px))'
+        cover.href = '/images/cover-discoveries-v2-820.webp'
+        document.head.append(cover)
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Caslon+Display&display=swap"
+    />
     <meta
       name="description"
       content="O espaço de Língua Portuguesa da nossa escola. Explore aulas de leitura, gramática, escrita e literatura."

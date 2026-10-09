@@ -21,7 +21,7 @@ export function AppShell() {
       <main
         id="main-content"
         tabIndex={-1}
-        className="book-stage flex-1 overflow-x-clip focus:outline-none"
+        className="flex-1 overflow-x-clip focus:outline-none"
         aria-busy={turning}
       >
         <div
@@ -29,7 +29,7 @@ export function AppShell() {
           data-direction={direction}
           data-state={turning ? 'turning' : 'arriving'}
           data-transition={`${turning ? 'out' : 'in'}-${direction}`}
-          className="page-surface group/book data-[state=turning]:pointer-events-none"
+          className="group/book data-[state=turning]:pointer-events-none"
         >
           <Outlet />
         </div>

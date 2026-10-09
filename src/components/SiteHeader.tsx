@@ -22,12 +22,21 @@ export function SiteHeader() {
           </small>
         </span>
       </Link>
-      <span className="flex items-center gap-[22px] text-[11px] text-[#777d76] mobile:gap-0 mobile:text-[9px]">
-        Língua Portuguesa
-        <span className="rounded-[3px] border border-[#b8bcb1] px-[9px] py-[6px] text-[8px] tracking-[1px] mobile:hidden">
-          5º ANO
+      <div className="flex items-center gap-5 mobile:gap-3">
+        <Link
+          to="/quiz"
+          className="rounded-lg border border-[#b8bcb1] px-4 py-3 text-xs font-semibold hover:bg-book-selected"
+          activeProps={{ className: 'bg-book-selected' }}
+        >
+          Quiz
+        </Link>
+        <span className="flex items-center gap-[22px] text-[11px] text-[#777d76] mobile:hidden">
+          Língua Portuguesa
+          <span className="rounded-[3px] border border-[#b8bcb1] px-[9px] py-[6px] text-[8px] tracking-[1px] mobile:hidden">
+            5º ANO
+          </span>
         </span>
-      </span>
+      </div>
     </header>
   )
 }

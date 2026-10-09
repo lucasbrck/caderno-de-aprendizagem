@@ -37,7 +37,7 @@ export function CategoryPage() {
         <Eyebrow className="tablet:hidden">SEU LIVRO DE DESCOBERTAS</Eyebrow>
         <span className="text-[8px] tracking-[1px]">CONTEÚDOS</span>
       </div>
-      <div className="open-book grid grid-cols-[.8fr_1.65fr] rounded-[5px_9px_9px_5px] tablet:grid-cols-1">
+      <div className="open-book grid grid-cols-[1fr_1fr] rounded-[5px_9px_9px_5px] tablet:grid-cols-1">
         <LessonIndex category={category} />
         <BookPage>
           <Eyebrow className="text-[#8a8b74]">SEÇÃO</Eyebrow>

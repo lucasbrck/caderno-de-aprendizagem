@@ -2,11 +2,10 @@ import {
   createRootRoute,
   createRoute,
   createRouter,
+  lazyRouteComponent,
 } from '@tanstack/react-router'
 import { AppShell } from './components/AppShell'
 import { HomePage } from './pages/HomePage'
-import { LessonPage } from './pages/LessonPage'
-import { CategoryPage } from './pages/CategoryPage'
 
 const rootRoute = createRootRoute({
   component: AppShell,
@@ -22,17 +21,35 @@ const indexRoute = createRoute({
 const categoryRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/categoria/$category',
-  component: CategoryPage,
+  component: lazyRouteComponent(
+    () => import('./pages/CategoryPage'),
+    'CategoryPage',
+  ),
 })
 
 const lessonRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/categoria/$category/aula/$lessonId',
-  component: LessonPage,
+  component: lazyRouteComponent(
+    () => import('./pages/LessonPage'),
+    'LessonPage',
+  ),
+})
+
+const quizRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/quiz',
+  component: lazyRouteComponent(() => import('./pages/QuizPage'), 'QuizPage'),
 })
 
 export const router = createRouter({
-  routeTree: rootRoute.addChildren([indexRoute, categoryRoute, lessonRoute]),
+  defaultPreload: 'intent',
+  routeTree: rootRoute.addChildren([
+    indexRoute,
+    categoryRoute,
+    lessonRoute,
+    quizRoute,
+  ]),
 })
 
 // Makes Link, navigation and route parameters aware of this route tree.

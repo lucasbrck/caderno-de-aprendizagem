@@ -3,7 +3,7 @@ export type Lesson = {
   title: string
   subject: string
   category:
-    'Leitura' | 'Gramática' | 'Escrita' | 'Literatura' | 'Produção de Texto'
+  'Leitura' | 'Gramática' | 'Escrita' | 'Literatura' | 'Produção de Texto'
   className?: string
   duration?: string
   description: string
@@ -35,8 +35,7 @@ export const lessons: Record<LessonCategory, Lesson[]> = {
       description:
         'Aprenda a escrever textos dissertativos-argumentativos, desenvolvendo habilidades de argumentação e estruturação de ideias.',
       youtubeId: '',
-      googleSlidesIframe:
-        'https://docs.google.com/presentation/d/e/2PACX-1vTR7VX26NzF0xhnRP7oTQ0BS2Z63YW81NT_8T16ujjVxaNIAyqjyec1taEq9Q4cDT7t9xUJTBHM0LP6/pubembed?start=false&loop=false&delayms=60000',
+      googleSlidesIframe: 'https://docs.google.com/presentation/d/e/2PACX-1vTR7VX26NzF0xhnRP7oTQ0BS2Z63YW81NT_8T16ujjVxaNIAyqjyec1taEq9Q4cDT7t9xUJTBHM0LP6/pubembed?start=false&loop=false&delayms=60000',
       thumbnail: '',
       accent: 'bg-ink',
       files: [],
@@ -49,8 +48,7 @@ export const lessons: Record<LessonCategory, Lesson[]> = {
       description:
         'Aprenda a construir parágrafos de desenvolvimento em textos dissertativos-argumentativos, organizando argumentos, explicando ideias e utilizando informações que fortaleçam a sua argumentação.',
       youtubeId: '',
-      googleSlidesIframe:
-        'https://docs.google.com/presentation/d/e/2PACX-1vSWZDYijZltuirLAG4RSu_uWQ1czHEhAqCVDE2fNKSc7o27dK-SlQYFug991RwbQMWz7yVdiQajN3m-/pub?start=false&loop=false&delayms=3000',
+      googleSlidesIframe: 'https://docs.google.com/presentation/d/e/2PACX-1vSWZDYijZltuirLAG4RSu_uWQ1czHEhAqCVDE2fNKSc7o27dK-SlQYFug991RwbQMWz7yVdiQajN3m-/pubembed?start=false&loop=false&delayms=3000',
       thumbnail: '',
       accent: 'bg-rose-200',
       files: [],
@@ -58,19 +56,18 @@ export const lessons: Record<LessonCategory, Lesson[]> = {
   ],
   Morfologia: [],
   Sintaxe: [{
-      id: 'sujeito-predicado',
-      title: 'Sujeito e predicado',
-      subject: 'Língua Portuguesa',
-      category: 'Gramática',
-      description:
-        'Aprenda a identificar e compreender o sujeito e o predicado, reconhecendo suas funções e relações na construção das frases.',
-      youtubeId: '',
-      googleSlidesIframe:
-        'https://docs.google.com/presentation/d/e/2PACX-1vTGxkwjKHvDNlPUHRsx4ikSmvZavbiKUWXixi3-6wDFkCeVbZJ8NcOsSlGOGoonJNePjd2S--unE9Xu/pub?start=false&loop=false&delayms=3000',
-      thumbnail: '',
-      accent: 'bg-cyan-200',
-      files: [],
-    },],
+    id: 'sujeito-predicado',
+    title: 'Sujeito e predicado',
+    subject: 'Língua Portuguesa',
+    category: 'Gramática',
+    description:
+      'Aprenda a identificar e compreender o sujeito e o predicado, reconhecendo suas funções e relações na construção das frases.',
+    youtubeId: '',
+    googleSlidesIframe: 'https://docs.google.com/presentation/d/e/2PACX-1vTGxkwjKHvDNlPUHRsx4ikSmvZavbiKUWXixi3-6wDFkCeVbZJ8NcOsSlGOGoonJNePjd2S--unE9Xu/pubembed?start=false&loop=false&delayms=3000',
+    thumbnail: '',
+    accent: 'bg-cyan-200',
+    files: [],
+  },],
   Semântica: [],
 }
 
