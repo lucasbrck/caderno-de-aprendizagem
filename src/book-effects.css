@@ -280,6 +280,27 @@
     background: linear-gradient(90deg, #91a7a3, #b5cbc5 12%, #cbdcd3);
   }
 
+  .open-book-single {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    position: relative;
+    overflow: visible;
+    perspective: 1900px;
+    perspective-origin: 40% 40%;
+    transform-style: preserve-3d;
+    background: #f6efdd;
+    border: 3px solid #31504c;
+    border-left-width: 5px;
+    border-bottom-width: 5px;
+    box-shadow:
+      1px 3px #ddd2b9,
+      2px 5px #f7efd9,
+      3px 7px #b8ad92,
+      4px 9px #eee4ca,
+      5px 13px #24443f,
+      0 24px 35px -12px #2f36264a;
+  }
+
   .open-book {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);

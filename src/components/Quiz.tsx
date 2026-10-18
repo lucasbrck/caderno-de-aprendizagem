@@ -1,9 +1,10 @@
+import { Link } from '@tanstack/react-router'
+import { QuestionBaseContent } from './QuestionBaseContent'
 import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, Check, RotateCcw } from 'lucide-react'
 import type { QuizQuestion } from '../data/quiz'
 import { BookPage } from './BookPage'
 import { Eyebrow } from './BookTypography'
-import { CoverLink } from './BookTextLink'
 import { cn } from '../lib/utils'
 
 type QuizProps = { title?: string; questions: QuizQuestion[] }
@@ -41,7 +42,7 @@ function QuizAttempt({ title, questions }: QuizProps) {
         !item.prompt.trim() ||
         item.options.length < 2 ||
         new Set(item.options.map((option) => option.id)).size !==
-          item.options.length ||
+        item.options.length ||
         item.options.some(
           (option) => !option.id.trim() || !option.text.trim(),
         ) ||
@@ -64,10 +65,15 @@ function QuizAttempt({ title, questions }: QuizProps) {
       aria-labelledby="quiz-title"
     >
       <div className="mb-6 flex items-center justify-between">
-        <CoverLink>Voltar à capa</CoverLink>
+        <Link
+          to="/quiz"
+          className="inline-flex items-center gap-2 text-sm hover:underline"
+        >
+          <ArrowLeft size={16} aria-hidden="true" /> Todos os conteúdos
+        </Link>
         <Eyebrow>PRATIQUE E DESCUBRA</Eyebrow>
       </div>
-      <div className="open-book overflow-hidden rounded-lg">
+      <div className="open-book-single overflow-hidden rounded-lg">
         <BookPage>
           <Eyebrow className="text-book-hint">QUIZ • LÍNGUA PORTUGUESA</Eyebrow>
           <h1
@@ -120,7 +126,8 @@ function QuizAttempt({ title, questions }: QuizProps) {
                       >
                         {correct ? 'Resposta correta' : 'Vamos revisar'}
                       </p>
-                      <h3 className="font-semibold">
+                      <QuestionBaseContent base={item.base} />
+                      <h3 className="text-justify font-semibold">
                         {position + 1}. {item.prompt}
                       </h3>
                       <p className="mt-3 text-sm">
@@ -208,11 +215,12 @@ function QuizAttempt({ title, questions }: QuizProps) {
                   </button>
                 ))}
               </nav>
+              <QuestionBaseContent base={question.base} />
               <h2
                 id="question-title"
                 ref={heading}
                 tabIndex={-1}
-                className="mb-6 font-display text-3xl leading-tight focus:outline-none"
+                className="mb-6 text-justify font-display text-3xl leading-tight focus:outline-none"
               >
                 {question.prompt}
               </h2>

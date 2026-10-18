@@ -1,24 +1,46 @@
-# Quiz
+# Quiz por conteúdo
 
-Acesse `/quiz` ou o link **Quiz** no cabeçalho. Edite `src/data/quiz.ts` para substituir as questões de exemplo.
+Acesse `/quiz` ou **Quiz** no cabeçalho para escolher um conteúdo. Cada conteúdo tem sua própria lista e endereço, como `/quiz/2-reg` e `/quiz/6-reg`.
+
+Edite `quizContents` em `src/data/quiz.ts` para cadastrar conteúdos e substituir as questões de exemplo. Use um `id` único por conteúdo (sem espaços, adequado para URL) e IDs de questões únicos dentro de cada lista.
 
 ```ts
-const questions: QuizQuestion[] = [
-  {
-    id: 'questao-1',
-    prompt: 'Qual palavra é um substantivo?',
-    options: [
-      { id: 'a', text: 'Alegria' },
-      { id: 'b', text: 'Correr' },
-    ],
-    correctOptionId: 'a',
-    explanation: 'Alegria dá nome a um sentimento.', // Opcional
-  },
-]
+{
+  id: '2-reg',
+  title: '2 REG',
+  questions: [
+    {
+      id: 'questao-1',
+      base: {
+        type: 'text',
+        text: 'Os alunos leram um livro.\nDepois, conversaram sobre a história.',
+        source: 'Texto elaborado para esta atividade.',
+      },
+      prompt: 'Qual ação os alunos realizaram primeiro?',
+      options: [
+        { id: 'a', text: 'Leram um livro.' },
+        { id: 'b', text: 'Conversaram sobre a história.' },
+      ],
+      correctOptionId: 'a',
+      explanation: 'A primeira frase apresenta a leitura.',
+    },
+  ],
+}
 ```
 
-Cada questão deve ter um ID único, um enunciado, pelo menos duas alternativas com IDs únicos dentro da questão e exatamente uma resposta correta, indicada por `correctOptionId`.
+O campo `base` é opcional e aparece antes da pergunta, tanto na atividade quanto na revisão. Para usar uma imagem, coloque o arquivo em `public/images/` e substitua `base` por:
 
-O componente `Quiz`, em `src/components/Quiz.tsx`, também recebe a lista diretamente: `<Quiz title="Meu quiz" questions={questions} />`. Uma alteração no conteúdo da lista inicia uma nova tentativa. Uma lista vazia exibe uma mensagem de indisponibilidade.
+```ts
+base: {
+  type: 'image',
+  src: '/images/texto-base.png',
+  alt: 'Descrição do conteúdo da imagem para quem utiliza leitor de tela.',
+  source: 'Autor, título da obra, publicação e ano.',
+},
+```
 
-As escolhas podem ser alteradas antes da conclusão. O resultado e as explicações aparecem após responder todas as questões e finalizar. As respostas ficam apenas na memória da página; recarregar ou sair descarta a tentativa. O gabarito está no cliente: este recurso é destinado à prática, não a avaliações com respostas sigilosas.
+`source` é a referência bibliográfica exibida como fonte e pode ser usada nos dois tipos de base. O texto preserva as quebras de linha. A imagem mantém suas proporções e se ajusta à largura disponível.
+
+Cada questão precisa de uma pergunta (`prompt`), pelo menos duas alternativas com IDs únicos e uma resposta correta (`correctOptionId`). `explanation` é opcional. Uma lista vazia exibe uma mensagem de indisponibilidade; um conteúdo inexistente exibe uma mensagem com link de retorno.
+
+As escolhas podem ser alteradas antes da conclusão. O resultado aparece depois de responder tudo e finalizar. Cada conteúdo inicia uma tentativa independente. As respostas ficam apenas na memória; sair ou recarregar descarta a tentativa. O gabarito está no cliente, destinado à prática, não a avaliações com respostas sigilosas.

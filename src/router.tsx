@@ -42,6 +42,15 @@ const quizRoute = createRoute({
   component: lazyRouteComponent(() => import('./pages/QuizPage'), 'QuizPage'),
 })
 
+const quizContentRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/quiz/$contentId',
+  component: lazyRouteComponent(
+    () => import('./pages/QuizPage'),
+    'QuizContentPage',
+  ),
+})
+
 export const router = createRouter({
   defaultPreload: 'intent',
   routeTree: rootRoute.addChildren([
@@ -49,6 +58,7 @@ export const router = createRouter({
     categoryRoute,
     lessonRoute,
     quizRoute,
+    quizContentRoute,
   ]),
 })
 
