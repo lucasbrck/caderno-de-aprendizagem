@@ -53,6 +53,19 @@ export const lessons: Record<LessonCategory, Lesson[]> = {
       accent: 'bg-rose-200',
       files: [],
     },
+    {
+      id: 'escolas-literarias',
+      title: 'Escolas Literárias - Era colonial',
+      subject: 'Língua Portuguesa',
+      category: 'Produção de Texto',
+      description:
+        '',
+      youtubeId: '',
+      googleSlidesIframe: 'https://docs.google.com/presentation/d/e/2PACX-1vTP-zna4rPa-o4TtYmA-D4HjTL8TiiRKamqq-2upQSt9AxcyiRH8pN7b9L1_P0MULklhP_swhknZPKm/pubembed?start=false&loop=false&delayms=3000',
+      thumbnail: '',
+      accent: 'bg-rose-200',
+      files: [],
+    }
   ],
   Morfologia: [],
   Sintaxe: [{
